@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F4A6BC">
+  <title>dorothy zbornak</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    html { background: #F4A6BC; }
+
+    body {
+      margin: 0;
+      padding: 32px 18px 50px;
+      min-height: 100vh;
+      background: #F4A6BC;
+      color: #000;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    main {
+      width: 100%;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 6vw, 48px);
+      font-weight: 700;
+      line-height: 1.15;
+      text-transform: lowercase;
+    }
+
+    /* Keep palm trees beside the photo, never over the buttons. */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 560px) minmax(0, 1fr);
+      grid-template-areas: "left photo right";
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .palm-panel {
+      display: flex;
+      min-width: 0;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .palm-left { grid-area: left; }
+    .palm-right { grid-area: right; }
+
+    .palm-tree {
+      display: block;
+      width: 100%;
+      max-width: 230px;
+      height: auto;
+      pointer-events: none;
+    }
+
+    .palm-right .palm-tree { transform: scaleX(-1); }
+
+    .dorothy-photo {
+      grid-area: photo;
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+    }
+
+    /* Five columns on desktop, three on tablet, two on mobile. */
+    .soundboard {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .sound {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 85px;
+      padding: 14px 12px;
+      border: none;
+      border-radius: 12px;
+      background: #B9DAF3;
+      color: #000;
+      font: 600 15px/1.4 Arial, Helvetica, sans-serif;
+      text-align: center;
+      text-transform: lowercase;
+      overflow-wrap: anywhere;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background .2s, transform .15s;
+    }
+
+    .sound:hover { background: #95C8ED; }
+    .sound:active { background: #79B9E5; transform: scale(.97); }
+    .sound.is-playing { background: #89C3EA; }
+
+    .sound:focus-visible {
+      outline: 3px solid #000;
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 900px) {
+      .soundboard { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 680px) {
+      body { padding: 24px 16px 40px; }
+
+      .hero {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-areas: "left right" "photo photo";
+        gap: 12px;
+      }
+
+      .palm-panel {
+        height: 134px;
+        overflow: hidden;
+        align-items: flex-start;
+      }
+
+      .palm-tree { width: 120px; }
+    }
+
+    @media (max-width: 560px) {
+      .soundboard {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .sound {
+        min-height: 80px;
+        padding: 12px 10px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 320px) {
+      .soundboard { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sound { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>dorothy zbornak</h1>
+    </header>
+
+    <div class="hero">
+      <div class="palm-panel palm-left">
+        <img class="palm-tree" src="palm-tree.svg" alt="" aria-hidden="true">
+      </div>
+
+      <img
+        class="dorothy-photo"
+        src="dorothy.webp"
+        alt="Dorothy Zbornak seated in a yellow robe"
+        width="1448"
+        height="1086"
+      >
+
+      <div class="palm-panel palm-right">
+        <img class="palm-tree" src="palm-tree.svg" alt="" aria-hidden="true">
+      </div>
+    </div>
+
+    <div class="soundboard" aria-label="Dorothy sound clips">
+      <button class="sound" type="button" data-audio="audio/heart palpitations.mp3">heart palpitations</button>
+      <button class="sound" type="button" data-audio="audio/i get confused.mp3">i get confused</button>
+      <button class="sound" type="button" data-audio="audio/exhausted all the time.mp3">exhausted all the time</button>
+      <button class="sound" type="button" data-audio="audio/i don&#x27;t feel well.mp3">i don&#x27;t feel well</button>
+      <button class="sound" type="button" data-audio="audio/everybody thinks i&#x27;m crazy.mp3">everybody thinks i&#x27;m crazy</button>
+      <button class="sound" type="button" data-audio="audio/days i can&#x27;t get out of bed.mp3">days i can&#x27;t get out of bed</button>
+      <button class="sound" type="button" data-audio="audio/i don&#x27;t believe you&#x27;re sick.mp3">i don&#x27;t believe you&#x27;re sick</button>
+      <button class="sound" type="button" data-audio="audio/i can&#x27;t even do that.mp3">i can&#x27;t even do that</button>
+      <button class="sound" type="button" data-audio="audio/i cannot speak literally.mp3">i cannot speak literally</button>
+      <button class="sound" type="button" data-audio="audio/i&#x27;m gonna tell you again.mp3">i&#x27;m gonna tell you again</button>
+      <button class="sound" type="button" data-audio="audio/what in the world does seeing men have to do with anything.mp3">what in the world does seeing men have to do with anything</button>
+      <button class="sound" type="button" data-audio="audio/do you see men.mp3">do you see men</button>
+      <button class="sound" type="button" data-audio="audio/divorced yes.mp3">divorced yes</button>
+      <button class="sound" type="button" data-audio="audio/sick for 5 months now.mp3">sick for 5 months now</button>
+      <button class="sound" type="button" data-audio="audio/keeps getting worse.mp3">keeps getting worse</button>
+      <button class="sound" type="button" data-audio="audio/cannot get rid of this flu.mp3">cannot get rid of this flu</button>
+      <button class="sound" type="button" data-audio="audio/as angry as i always will be.mp3">as angry as i always will be</button>
+      <button class="sound" type="button" data-audio="audio/i don&#x27;t know where you doctors lose your humanity.mp3">i don&#x27;t know where you doctors lose your humanity</button>
+      <button class="sound" type="button" data-audio="audio/if i had been a man.mp3">if i had been a man</button>
+      <button class="sound" type="button" data-audio="audio/no one deserves that kind of treatment.mp3">no one deserves that kind of treatment</button>
+      <button class="sound" type="button" data-audio="audio/you dismissed me.mp3">you dismissed me</button>
+      <button class="sound" type="button" data-audio="audio/you made me feel crazy.mp3">you made me feel crazy</button>
+      <button class="sound" type="button" data-audio="audio/i came to you sick.mp3">i came to you sick</button>
+      <button class="sound" type="button" data-audio="audio/words can&#x27;t express what i have to say.mp3">words can&#x27;t express what i have to say</button>
+      <button class="sound" type="button" data-audio="audio/some things i have to say.mp3">some things i have to say</button>
+      <button class="sound" type="button" data-audio="audio/at least i know i have something.mp3">at least i know i have something</button>
+      <button class="sound" type="button" data-audio="audio/i have chronic fatigue syndrome.mp3">i have chronic fatigue syndrome</button>
+      <button class="sound" type="button" data-audio="audio/i really am sick.mp3">i really am sick</button>
+      <button class="sound" type="button" data-audio="audio/you remember.mp3">you remember</button>
+      <button class="sound" type="button" data-audio="audio/you told me i wasn&#x27;t sick.mp3">you told me i wasn&#x27;t sick</button>
+      <button class="sound" type="button" data-audio="audio/dr. bud.mp3">dr. bud</button>
+      <button class="sound" type="button" data-audio="audio/the one who told me i was getting old.mp3">the one who told me i was getting old</button>
+      <button class="sound" type="button" data-audio="audio/scream.mp3">scream</button>
+      <button class="sound" type="button" data-audio="audio/i can&#x27;t even think straight.mp3">i can&#x27;t even think straight</button>
+      <button class="sound" type="button" data-audio="audio/why didn&#x27;t they tell me.mp3">why didn&#x27;t they tell me</button>
+      <button class="sound" type="button" data-audio="audio/am i gonna die.mp3">am i gonna die</button>
+      <button class="sound" type="button" data-audio="audio/do you think i&#x27;m crazy too.mp3">do you think i&#x27;m crazy too</button>
+      <button class="sound" type="button" data-audio="audio/nobody believes me 2.mp3">nobody believes me 2</button>
+      <button class="sound" type="button" data-audio="audio/i think so too.mp3">i think so too</button>
+      <button class="sound" type="button" data-audio="audio/maybe i&#x27;m really crazy.mp3">maybe i&#x27;m really crazy</button>
+      <button class="sound" type="button" data-audio="audio/nobody believes me.mp3">nobody believes me</button>
+      <button class="sound" type="button" data-audio="audio/maybe i am crazy.mp3">maybe i am crazy</button>
+      <button class="sound" type="button" data-audio="audio/change your hair color.mp3">change your hair color</button>
+      <button class="sound" type="button" data-audio="audio/you&#x27;re not 30.mp3">you&#x27;re not 30</button>
+      <button class="sound" type="button" data-audio="audio/don&#x27;t take this the wrong way.mp3">don&#x27;t take this the wrong way</button>
+      <button class="sound" type="button" data-audio="audio/you&#x27;re not sick.mp3">you&#x27;re not sick</button>
+      <button class="sound" type="button" data-audio="audio/give up my job.mp3">give up my job</button>
+      <button class="sound" type="button" data-audio="audio/i am sick.mp3">i am sick</button>
+      <button class="sound" type="button" data-audio="audio/main complaint is you&#x27;re tired.mp3">main complaint is you&#x27;re tired</button>
+      <button class="sound" type="button" data-audio="audio/what are you doing here.mp3">what are you doing here</button>
+    </div>
+
+    <audio id="dorothy-audio" preload="none"></audio>
+  </main>
+
+  <script>
+    const player = document.getElementById('dorothy-audio');
+    const buttons = Array.from(document.querySelectorAll('.sound'));
+    let playingButton = null;
+
+    function clearPlayingState() {
+      if (playingButton) {
+        playingButton.classList.remove('is-playing');
+        playingButton.removeAttribute('aria-pressed');
+        playingButton = null;
+      }
+    }
+
+    buttons.forEach(button => {
+      button.addEventListener('click', async () => {
+        player.pause();
+        clearPlayingState();
+        playingButton = button;
+        button.classList.add('is-playing');
+        button.setAttribute('aria-pressed', 'true');
+        player.src = button.dataset.audio;
+        player.currentTime = 0;
+
+        try {
+          await player.play();
+        } catch (error) {
+          // Interrupted play() calls are expected when clicking rapidly.
+          if (playingButton === button) clearPlayingState();
+          console.error('Audio could not play:', error);
+        }
+      });
+    });
+
+    player.addEventListener('ended', clearPlayingState);
+    player.addEventListener('error', clearPlayingState);
+  </script>
+</body>
+</html>
